@@ -1,0 +1,61 @@
+# ==========================================
+# 1. PYTHON & FLASK (Dành cho app.py)
+# ==========================================
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.venv/
+venv/
+env/
+instance/
+.env
+
+# ==========================================
+# 2. DATABASE & DỮ LIỆU (Bảo mật đặt slot)
+# ==========================================
+*.db
+*.sqlite3
+*.db-journal
+*.db-shm
+*.db-wal
+# Nếu bạn muốn chặn luôn file backup đã mã hóa thì bỏ dấu # ở dưới:
+# backup_slots.bin
+
+# ==========================================
+# 3. VISUAL STUDIO (File hệ thống & Build)
+# ==========================================
+.vs/
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo
+*.sln.docstates
+*.opendb
+*.ide
+*.VC.db
+
+# ==========================================
+# 4. VS CODE (Cấu hình cá nhân)
+# ==========================================
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# ==========================================
+# 5. BẢO MẬT & KEY (TUYỆT ĐỐI KHÔNG LÊN GIT)
+# ==========================================
+secret.key
+secrets.json
+*.pem
+*.cap
+*.bin
+
+# ==========================================
+# 6. HỆ THỐNG & AI
+# ==========================================
+.DS_Store
+Thumbs.db
+.copilotignore
