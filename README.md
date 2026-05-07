@@ -18,9 +18,6 @@ Dự án này là một giao diện quản trị hiện đại (Glassmorphism) t
 
 ## ⚙️ Hướng dẫn cách dùng
 ## link sài https://maiyeuem24092012.github.io/Create-a-slot/login.html
-## 📝 Thông tin tài khoản mặc định
-- **Email:** `admin@pro.com`
-- **Password:** `admin123`
 
 ## ⚠️ Lưu ý
 - Hệ thống yêu cầu chạy trên môi trường Web Server (Live Server, GitHub Pages, v.v.). Không thể chạy trực tiếp bằng cách mở file từ ổ đĩa (`file://`).
