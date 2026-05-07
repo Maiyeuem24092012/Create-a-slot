@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập Hệ thống PRO-PANEL</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+        :root { --primary: #00f2ff; --bg: #000; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: #fff; height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center; margin: 0; }
+        .login__img { position: absolute; width: 100%; height: 100%; object-fit: cover; z-index: -1; filter: brightness(0.3); }
+        
+        .form-card { width: 380px; padding: 2.5rem; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(20px); border-radius: 1.5rem; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
+        .title { text-align: center; color: var(--primary); margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 2px; font-size: 1.5rem; }
+        
+        .input-box { border-bottom: 2px solid #fff; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 10px; padding: 8px 0; }
+        .input-box input { background: none; border: none; outline: none; color: #fff; width: 100%; font-size: 1rem; }
+        
+        .btn { width: 100%; padding: 12px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; margin-top: 10px; transition: 0.3s; }
+        .btn-primary { background: var(--primary); color: #000; }
+        .btn-primary:hover { box-shadow: 0 0 20px var(--primary); transform: translateY(-2px); }
+        
+        .divider { margin: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.2); position: relative; }
+        .divider span { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: #1a1a1a; padding: 0 10px; color: #888; font-size: 12px; }
+        
+        #google-btn { display: flex; justify-content: center; margin-top: 10px; }
+        
+        .options { display: flex; justify-content: space-between; font-size: 0.85rem; margin: 15px 0; }
+        .hidden { display: none !important; }
+        .link { color: var(--primary); cursor: pointer; text-decoration: none; }
+        .link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <img src="https://github.com/Prilist08/Login-Form/blob/main/Github/login-bg.png?raw=true" class="login__img">
+
+    <div class="form-card" id="login-section">
+        <h2 class="title">Đăng Nhập</h2>
+        <form id="loginForm">
+            <div class="input-box"><i class="ri-mail-line"></i><input type="email" id="l-email" placeholder="Email" required></div>
+            <div class="input-box"><i class="ri-lock-line"></i><input type="password" id="l-pass" placeholder="Mật khẩu" required></div>
+            
+            <div class="options">
+                <label style="cursor:pointer"><input type="checkbox" id="remember"> Ghi nhớ đăng nhập</label>
+                <span class="link" onclick="showForm('forgot')">Quên mật khẩu?</span>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">ĐĂNG NHẬP</button>
+
+            <div class="divider"><span>HOẶC</span></div>
+            <div id="google-btn"></div>
+
+            <p style="text-align:center; font-size:0.85rem; margin-top:20px">Chưa có tài khoản? <span class="link" onclick="showForm('reg')">Đăng ký ngay</span></p>
+        </form>
+    </div>
+
+    <div class="form-card hidden" id="reg-section">
+        <h2 class="title">Đăng Ký</h2>
+        <form id="regForm">
+            <div class="input-box"><i class="ri-user-line"></i><input type="text" id="r-name" placeholder="Tên hiển thị" required></div>
+            <div class="input-box"><i class="ri-mail-line"></i><input type="email" id="r-email" placeholder="Email" required></div>
+            <div class="input-box"><i class="ri-lock-line"></i><input type="password" id="r-pass" placeholder="Mật khẩu" required></div>
+            <button type="submit" class="btn btn-primary">TẠO TÀI KHOẢN</button>
+            <p style="text-align:center; margin-top:15px"><span class="link" onclick="showForm('login')">Quay lại đăng nhập</span></p>
+        </form>
+    </div>
+
+    <div class="form-card hidden" id="forgot-section">
+        <h2 class="title">Khôi Phục</h2>
+        <div id="otp-step-1">
+            <div class="input-box"><i class="ri-mail-line"></i><input type="email" id="f-email" placeholder="Nhập Email của bạn"></div>
+            <button class="btn btn-primary" onclick="sendOTP()">Gửi mã OTP</button>
+        </div>
+        <div id="otp-step-2" class="hidden">
+            <p style="text-align:center; color:var(--primary); font-size:0.8rem">Mã OTP thử nghiệm: 123456</p>
+            <div class="input-box"><i class="ri-key-line"></i><input type="text" id="otp-code" placeholder="Nhập mã OTP"></div>
+            <button class="btn btn-primary" onclick="verifyOTP()">Xác Nhận</button>
+        </div>
+        <p style="text-align:center; margin-top:15px"><span class="link" onclick="showForm('login')">Hủy bỏ</span></p>
+    </div>
+
+    <script>
+        // 1. Khởi tạo dữ liệu người dùng
+        if(!localStorage.getItem('all_users')) {
+            localStorage.setItem('all_users', JSON.stringify([{
+                name: "Quản Trị Viên", 
+                email: "admin@pro.com", 
+                pass: btoa("admin123"), 
+                role: "admin", 
+                expiry: 4102444800000, 
+                avatar: ""
+            }]));
+        }
+
+        function showForm(id) {
+            document.querySelectorAll('.form-card').forEach(f => f.classList.add('hidden'));
+            document.getElementById(id + '-section').classList.remove('hidden');
+        }
+
+        // 2. Google Identity Setup
+        window.onload = function () {
+            google.accounts.id.initialize({
+                client_id: "462833980584-ep3ttbi79s3ihl450nbcgo7rb22q4b7m.apps.googleusercontent.com", // Thay ID của bạn vào đây
+                callback: handleCredentialResponse
+            });
+            google.accounts.id.renderButton(
+                document.getElementById("google-btn"),
+                { theme: "outline", size: "large", width: 300, text: "signin_with" } 
+            );
+        }
+
+        function handleCredentialResponse(response) {
+            const payload = decodeJwtResponse(response.credential);
+            let allUsers = JSON.parse(localStorage.getItem('all_users'));
+            let user = allUsers.find(u => u.email === payload.email);
+
+            if (!user) {
+                user = {
+                    name: payload.name,
+                    email: payload.email,
+                    pass: "google-auth-protected",
+                    role: "user",
+                    expiry: Date.now() + 3600000, // Tặng 1h
+                    avatar: payload.picture
+                };
+                allUsers.push(user);
+                localStorage.setItem('all_users', JSON.stringify(allUsers));
+            }
+
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            window.location.href = 'trang chủ.html';
+        }
+
+        function decodeJwtResponse(token) {
+            let base64Url = token.split('.')[1];
+            let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            return JSON.parse(atob(base64));
+        }
+
+        // 3. Xử lý Đăng ký
+        document.getElementById('regForm').onsubmit = (e) => {
+            e.preventDefault();
+            const email = document.getElementById('r-email').value;
+            let allUsers = JSON.parse(localStorage.getItem('all_users'));
+
+            if(allUsers.find(u => u.email === email)) return alert("Email đã tồn tại!");
+
+            const newUser = {
+                name: document.getElementById('r-name').value,
+                email: email,
+                pass: btoa(document.getElementById('r-pass').value),
+                role: "user",
+                expiry: Date.now() + 3600000,
+                avatar: ""
+            };
+            
+            allUsers.push(newUser);
+            localStorage.setItem('all_users', JSON.stringify(allUsers));
+            alert("Đăng ký thành công!");
+            showForm('login');
+        };
+
+        // 4. Xử lý Đăng nhập truyền thống
+        document.getElementById('loginForm').onsubmit = (e) => {
+            e.preventDefault();
+            const email = document.getElementById('l-email').value;
+            const pass = btoa(document.getElementById('l-pass').value);
+            const remember = document.getElementById('remember').checked;
+
+            let allUsers = JSON.parse(localStorage.getItem('all_users'));
+            let user = allUsers.find(u => u.email === email && u.pass === pass);
+
+            if (user) {
+                user.loginExpiry = remember ? Date.now() + (7*24*60*60*1000) : null;
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                window.location.href = 'trang chủ.html';
+            } else { 
+                alert("Sai tài khoản hoặc mật khẩu!"); 
+            }
+        };
+
+        // 5. Quên mật khẩu
+        function sendOTP() {
+            const email = document.getElementById('f-email').value;
+            let allUsers = JSON.parse(localStorage.getItem('all_users'));
+            if (!allUsers.find(u => u.email === email)) return alert("Email không tồn tại!");
+            
+            document.getElementById('otp-step-1').classList.add('hidden');
+            document.getElementById('otp-step-2').classList.remove('hidden');
+        }
+
+        function verifyOTP() {
+            if (document.getElementById('otp-code').value === "123456") {
+                const email = document.getElementById('f-email').value;
+                let allUsers = JSON.parse(localStorage.getItem('all_users'));
+                let userIndex = allUsers.findIndex(u => u.email === email);
+                
+                allUsers[userIndex].pass = btoa("123456");
+                localStorage.setItem('all_users', JSON.stringify(allUsers));
+                
+                alert("Mật khẩu đã reset về: 123456");
+                showForm('login');
+            } else { 
+                alert("Mã OTP không chính xác!"); 
+            }
+        }
+    </script>
+</body>
+</html>

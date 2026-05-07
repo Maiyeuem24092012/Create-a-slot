@@ -1,0 +1,359 @@
+<html lang="vi"><head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <title>Pro-Panel Dashboard</title>
+    <style>
+        :root { --primary: #00f2ff; --bg: #0d0d0d; --card: #161616; --border: #333; }
+        body { background: var(--bg); color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; height: 100vh; overflow: hidden; }
+
+        /* SIDEBAR */
+        .sidebar { width: 260px; height: 100vh; background: rgba(17, 17, 17, 0.95); border-right: 1px solid var(--border); padding: 25px; display: flex; flex-direction: column; }
+        .sidebar h2 { color: var(--primary); margin-bottom: 40px; display: flex; align-items: center; gap: 10px; font-size: 20px; }
+        .menu-item { display: flex; align-items: center; gap: 15px; padding: 12px 15px; color: #aaa; border-radius: 10px; margin-bottom: 8px; cursor: pointer; transition: 0.3s; }
+        .menu-item:hover, .menu-item.active { background: rgba(0, 242, 255, 0.1); color: var(--primary); }
+        .menu-item.active { border-left: 4px solid var(--primary); border-radius: 0 10px 10px 0; }
+
+        /* MAIN */
+        .main { flex: 1; padding: 40px; overflow-y: auto; background: radial-gradient(circle at top right, #1a1a1a, #0d0d0d); }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .profile { display: flex; align-items: center; gap: 15px; background: rgba(255,255,255,0.05); padding: 8px 20px; border-radius: 50px; border: 1px solid #444; }
+        .profile img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--primary); object-fit: cover; }
+
+        /* CARDS */
+        .card { background: var(--card); padding: 25px; border-radius: 15px; border: 1px solid var(--border); margin-bottom: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .value { font-size: 24px; font-weight: bold; color: var(--primary); margin-top: 10px; }
+
+        /* TABLES */
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th { text-align: left; color: var(--primary); padding: 12px; border-bottom: 1px solid var(--border); font-size: 13px; }
+        td { padding: 12px; border-bottom: 1px solid #222; font-size: 14px; }
+
+        input { background: #222; border: 1px solid #444; color: #fff; padding: 10px; border-radius: 5px; width: 100%; box-sizing: border-box; margin: 5px 0; }
+        button { background: var(--primary); color: #000; border: none; padding: 10px 15px; border-radius: 5px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        button:hover { opacity: 0.8; box-shadow: 0 0 10px var(--primary); }
+        
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2><i class="ri-shield-flash-line"></i> PRO-PANEL</h2>
+        <div class="menu-item active" onclick="openTab(event, 'dash')"><i class="ri-dashboard-line"></i> Dashboard</div>
+        <div class="menu-item" onclick="openTab(event, 'buy-slots')"><i class="ri-shopping-cart-line"></i> Chọn Slot</div>
+        <div class="menu-item" onclick="openTab(event, 'tab-profile')"><i class="ri-user-settings-line"></i> Thay Avatar</div>
+        
+        <div id="admin-only-nav" class="">
+            <hr style="border: 0.5px solid #333; margin: 15px 0;">
+            <div class="menu-item" onclick="openTab(event, 'admin-users')"><i class="ri-group-line"></i> Quản lý User</div>
+            <div class="menu-item" onclick="openTab(event, 'admin-slots')"><i class="ri-settings-5-line"></i> Quản lý Mẫu Slot</div>
+        </div>
+
+        <div class="menu-item" onclick="logout()" style="margin-top:auto; color:#ff4d4d"><i class="ri-logout-box-line"></i> Đăng xuất</div>
+    </div>
+
+    <div class="main">
+        <div class="header">
+            <h1 id="tab-title">Dashboard</h1>
+            <div class="profile">
+                <div style="text-align:right">
+                    <b id="u-name">Quản Trị Viên</b><br>
+                    <small id="u-role" style="color:var(--primary)">Cấp bậc: ADMIN</small>
+                </div>
+                <img id="u-avt" src="https://cdn-icons-png.flaticon.com/512/149/149071.png">
+            </div>
+        </div>
+
+        <div id="dash" class="tab-content active">
+            <div class="grid">
+                <div class="card">
+                    <h3>Trạng thái Tài khoản</h3>
+                    <div id="key-status" class="value" style="color: rgb(0, 255, 0);">Đang hoạt động</div>
+                    
+                </div>
+                <div class="card">
+                    <h3>Thời gian hết hạn</h3>
+                    <div id="main-timer" class="value">434 Ngày 23:26:27</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="buy-slots" class="tab-content">
+            <h2 style="margin-bottom: 20px;">Các gói Slot khả dụng</h2>
+            <div class="grid" id="buy-slots-grid"><p>Hiện chưa có gói nào được Admin cấu hình.</p></div>
+        </div>
+
+        <div id="tab-profile" class="tab-content">
+            <div class="card" style="max-width: 500px;">
+                <h3>Cài đặt Hồ sơ</h3>
+                <label>Dán Link Ảnh đại diện (URL):</label>
+                <input type="text" id="new-avt-url" placeholder="https://example.com/image.png">
+                <button onclick="changeAvatar()" style="width:100%; margin-top:10px">Cập nhật Avatar</button>
+            </div>
+        </div>
+
+        <div id="admin-users" class="tab-content">
+            <div class="card">
+                <h3>Admin: Tạo tài khoản User mới</h3>
+                <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px">
+                    <input type="text" id="new-u-name" placeholder="Tên User">
+                    <input type="email" id="new-u-email" placeholder="Email">
+                    <input type="password" id="new-u-pass" placeholder="Mật khẩu">
+                </div>
+                <button onclick="adminAddUser()" style="width:100%; margin-top:10px">Xác nhận Tạo User</button>
+            </div>
+            <div class="card">
+                <h3>Danh sách Thành viên</h3>
+                <table>
+                    <thead><tr><th>Tên</th><th>Email</th><th>Mật khẩu</th><th>Hạn dùng</th><th>Thao tác</th></tr></thead>
+                    <tbody id="user-table-body">
+                <tr>
+                    <td>Quản Trị Viên</td>
+                    <td>admin@pro.com</td>
+                    <td><code>MTIzNDU2</code></td>
+                    <td style="color:#00ff00">
+                        16/7/2027
+                    </td>
+                    <td>
+                        <button onclick="adminGiveSlot('admin@pro.com')">Cấp Slot</button>
+                        
+                    </td>
+                </tr>
+            </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="admin-slots" class="tab-content">
+            <div class="card">
+                <h3>Tạo Gói Slot Mới</h3>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px">
+                    <input type="text" id="slot-n" placeholder="Tên gói (Ví dụ: Gói VIP Tháng)">
+                    <input type="number" id="slot-d" placeholder="Số ngày">
+                </div>
+                <button onclick="createSlotType()" style="margin-top:10px">Thêm vào hệ thống</button>
+            </div>
+            <div class="card">
+                <h3>Danh sách Gói Mẫu</h3>
+                <table>
+                    <thead><tr><th>Tên gói</th><th>Số ngày</th><th>Thao tác</th></tr></thead>
+                    <tbody id="slot-type-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if(!currentUser) window.location.href = 'login.html';
+
+        function initApp() {
+            // Hiển thị thông tin Header
+            document.getElementById('u-name').innerText = currentUser.name;
+            document.getElementById('u-role').innerText = "Cấp bậc: " + currentUser.role.toUpperCase();
+            document.getElementById('u-avt').src = currentUser.avatar || "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+
+            if(currentUser.role === 'admin') {
+                document.getElementById('admin-only-nav').classList.remove('hidden');
+            }
+
+            startCountdown();
+            renderAdminUserTable();
+            renderSlotTypes();
+            renderUserBuyGrid();
+        }
+
+        function openTab(e, id) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            e.currentTarget.classList.add('active');
+            document.getElementById('tab-title').innerText = e.currentTarget.innerText;
+        }
+
+        // --- THAY AVATAR ---
+        function changeAvatar() {
+            let url = document.getElementById('new-avt-url').value;
+            if(!url) return alert("Vui lòng dán link ảnh!");
+
+            let allUsers = JSON.parse(localStorage.getItem('all_users'));
+            let uIdx = allUsers.findIndex(u => u.email === currentUser.email);
+            
+            allUsers[uIdx].avatar = url;
+            localStorage.setItem('all_users', JSON.stringify(allUsers));
+
+            currentUser.avatar = url;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            document.getElementById('u-avt').src = url;
+            alert("Đã cập nhật ảnh đại diện thành công!");
+        }
+
+        // --- QUẢN LÝ USER (ADMIN) ---
+        function adminAddUser() {
+            let name = document.getElementById('new-u-name').value;
+            let email = document.getElementById('new-u-email').value;
+            let pass = document.getElementById('new-u-pass').value;
+
+            if(!name || !email || !pass) return alert("Vui lòng nhập đủ thông tin!");
+
+            let allUsers = JSON.parse(localStorage.getItem('all_users')) || [];
+            if(allUsers.find(u => u.email === email)) return alert("Email này đã tồn tại!");
+
+            allUsers.push({ name, email, pass, role: 'user', expiry: 0, avatar: "" });
+            localStorage.setItem('all_users', JSON.stringify(allUsers));
+            
+            // Clear input
+            document.getElementById('new-u-name').value = "";
+            document.getElementById('new-u-email').value = "";
+            document.getElementById('new-u-pass').value = "";
+
+            alert("Đã tạo User thành công!");
+            renderAdminUserTable();
+        }
+
+        function renderAdminUserTable() {
+            let users = JSON.parse(localStorage.getItem('all_users')) || [];
+            document.getElementById('user-table-body').innerHTML = users.map((u, i) => `
+                <tr>
+                    <td>${u.name}</td>
+                    <td>${u.email}</td>
+                    <td><code>${u.pass}</code></td>
+                    <td style="color:${u.expiry < Date.now() ? '#ff4d4d' : '#00ff00'}">
+                        ${u.expiry > 0 ? new Date(u.expiry).toLocaleDateString('vi-VN') : 'Chưa có Slot'}
+                    </td>
+                    <td>
+                        <button onclick="adminGiveSlot('${u.email}')">Cấp Slot</button>
+                        ${u.role !== 'admin' ? `<button onclick="adminDelUser(${i})" style="background:#ff4d4d; color:white">Xóa</button>` : ''}
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function adminGiveSlot(email) {
+            let days = prompt("Nhập số ngày muốn cấp cho User này:", "30");
+            if(days) {
+                let allUsers = JSON.parse(localStorage.getItem('all_users'));
+                let idx = allUsers.findIndex(u => u.email === email);
+                let now = Date.now();
+                let current = allUsers[idx].expiry > now ? allUsers[idx].expiry : now;
+                allUsers[idx].expiry = current + (parseInt(days) * 86400000);
+                localStorage.setItem('all_users', JSON.stringify(allUsers));
+                renderAdminUserTable();
+                alert("Đã cấp Slot thành công!");
+            }
+        }
+
+        function adminDelUser(i) {
+            if(confirm("Bạn chắc chắn muốn xóa người dùng này?")) {
+                let allUsers = JSON.parse(localStorage.getItem('all_users'));
+                allUsers.splice(i, 1);
+                localStorage.setItem('all_users', JSON.stringify(allUsers));
+                renderAdminUserTable();
+            }
+        }
+
+        // --- QUẢN LÝ MẪU SLOT (ADMIN) ---
+        function createSlotType() {
+            let name = document.getElementById('slot-n').value;
+            let days = document.getElementById('slot-d').value;
+            if(!name || !days) return alert("Vui lòng điền đủ tên gói và số ngày!");
+
+            let types = JSON.parse(localStorage.getItem('slot_types')) || [];
+            types.push({name, days: parseInt(days)});
+            localStorage.setItem('slot_types', JSON.stringify(types));
+            
+            document.getElementById('slot-n').value = "";
+            document.getElementById('slot-d').value = "";
+            
+            renderSlotTypes();
+            renderUserBuyGrid();
+        }
+
+        function renderSlotTypes() {
+            let types = JSON.parse(localStorage.getItem('slot_types')) || [];
+            document.getElementById('slot-type-body').innerHTML = types.map((t, i) => `
+                <tr>
+                    <td>${t.name}</td>
+                    <td>${t.days} Ngày</td>
+                    <td><button onclick="deleteSlotType(${i})" style="background:#ff4d4d; color:white">Xóa mẫu</button></td>
+                </tr>
+            `).join('');
+        }
+
+        function deleteSlotType(i) {
+            let types = JSON.parse(localStorage.getItem('slot_types'));
+            types.splice(i, 1);
+            localStorage.setItem('slot_types', JSON.stringify(types));
+            renderSlotTypes();
+            renderUserBuyGrid();
+        }
+
+        // --- RENDER GRID CHO USER MUA ---
+        function renderUserBuyGrid() {
+            let types = JSON.parse(localStorage.getItem('slot_types')) || [];
+            if(types.length === 0) {
+                document.getElementById('buy-slots-grid').innerHTML = "<p>Hiện chưa có gói nào được Admin cấu hình.</p>";
+                return;
+            }
+            document.getElementById('buy-slots-grid').innerHTML = types.map(t => `
+                <div class="card" style="text-align:center; border:1px solid #444">
+                    <h3>${t.name}</h3>
+                    <div class="value">${t.days} Ngày</div>
+                    <button onclick="userBuySlot(${t.days})" style="margin-top:15px; width:100%">Kích hoạt ngay</button>
+                </div>
+            `).join('');
+        }
+
+        function userBuySlot(days) {
+            if(confirm(`Bạn có muốn sử dụng gói ${days} ngày này không?`)) {
+                let allUsers = JSON.parse(localStorage.getItem('all_users'));
+                let uIdx = allUsers.findIndex(u => u.email === currentUser.email);
+                let now = Date.now();
+                let currentExpiry = allUsers[uIdx].expiry > now ? allUsers[uIdx].expiry : now;
+                allUsers[uIdx].expiry = currentExpiry + (days * 86400000);
+                
+                localStorage.setItem('all_users', JSON.stringify(allUsers));
+                currentUser.expiry = allUsers[uIdx].expiry;
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                
+                alert("Kích hoạt Slot thành công!");
+                location.reload();
+            }
+        }
+
+        // --- ĐẾM NGƯỢC ---
+        function startCountdown() {
+            setInterval(() => {
+                let diff = currentUser.expiry - Date.now();
+                let statusEl = document.getElementById('key-status');
+                let timerEl = document.getElementById('main-timer');
+
+                if(diff <= 0) {
+                    statusEl.innerText = "Hết hạn / Chưa có Slot";
+                    statusEl.style.color = "#ff4d4d";
+                    timerEl.innerText = "00 Ngày 00:00:00";
+                } else {
+                    statusEl.innerText = "Đang hoạt động";
+                    statusEl.style.color = "#00ff00";
+                    let d = Math.floor(diff / 86400000);
+                    let h = Math.floor((diff % 86400000) / 3600000);
+                    let m = Math.floor((diff % 3600000) / 60000);
+                    let s = Math.floor((diff % 60000) / 1000);
+                    timerEl.innerText = `${d} Ngày ${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+                }
+            }, 1000);
+        }
+
+        function logout() { 
+            localStorage.removeItem('currentUser'); 
+            window.location.href = 'login.html'; 
+        }
+
+        initApp();
+    </script>
+
+</body></html>
