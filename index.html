@@ -5,9 +5,7 @@
 
 <meta charset="UTF-8">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>PRO PANEL DASHBOARD</title>
 
@@ -18,22 +16,15 @@ rel="stylesheet">
 <style>
 
 :root{
-
 --primary:#00f2ff;
-
 --bg:#0d0d0d;
-
 --card:#161616;
-
 --border:#333;
 }
 
 *{
-
 margin:0;
-
 padding:0;
-
 box-sizing:border-box;
 }
 
@@ -41,14 +32,16 @@ body{
 
 background:var(--bg);
 
-color:#fff;
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
 
+color:#fff;
 font-family:'Segoe UI',sans-serif;
 
 display:none;
 
 height:100vh;
-
 overflow:hidden;
 }
 
@@ -57,7 +50,6 @@ overflow:hidden;
 .sidebar{
 
 width:260px;
-
 height:100vh;
 
 background:#111;
@@ -67,7 +59,6 @@ border-right:1px solid var(--border);
 padding:25px;
 
 display:flex;
-
 flex-direction:column;
 }
 
@@ -78,18 +69,14 @@ color:var(--primary);
 margin-bottom:40px;
 
 display:flex;
-
 align-items:center;
-
 gap:10px;
 }
 
 .menu-item{
 
 display:flex;
-
 align-items:center;
-
 gap:15px;
 
 padding:12px 15px;
@@ -138,9 +125,7 @@ margin-bottom:30px;
 .profile{
 
 display:flex;
-
 align-items:center;
-
 gap:15px;
 
 background:rgba(255,255,255,.05);
@@ -150,12 +135,13 @@ padding:8px 20px;
 border-radius:50px;
 
 border:1px solid #444;
+
+backdrop-filter:blur(10px);
 }
 
 .profile img{
 
 width:45px;
-
 height:45px;
 
 border-radius:50%;
@@ -169,7 +155,7 @@ object-fit:cover;
 
 .card{
 
-background:var(--card);
+background:rgba(22,22,22,.9);
 
 padding:25px;
 
@@ -178,6 +164,8 @@ border-radius:15px;
 border:1px solid var(--border);
 
 margin-bottom:20px;
+
+backdrop-filter:blur(10px);
 }
 
 .grid{
@@ -204,19 +192,18 @@ margin-top:10px;
 /* TAB */
 
 .tab-content{
-
 display:none;
 }
 
 .tab-content.active{
-
 display:block;
 }
 
 .hidden{
-
 display:none !important;
 }
+
+/* BUTTON */
 
 button{
 
@@ -226,19 +213,23 @@ color:#000;
 
 border:none;
 
-padding:10px 15px;
+padding:12px 15px;
 
-border-radius:8px;
+border-radius:10px;
 
 font-weight:bold;
 
 cursor:pointer;
+
+transition:.3s;
 }
 
 button:hover{
-
 opacity:.8;
+transform:scale(1.02);
 }
+
+/* INPUT */
 
 input{
 
@@ -255,6 +246,15 @@ border:1px solid #444;
 border-radius:10px;
 
 color:#fff;
+
+outline:none;
+}
+
+input:focus{
+
+border:1px solid var(--primary);
+
+box-shadow:0 0 10px rgba(0,242,255,.3);
 }
 
 </style>
@@ -268,11 +268,8 @@ color:#fff;
 <div class="sidebar">
 
 <h2>
-
 <i class="ri-shield-flash-line"></i>
-
 PRO PANEL
-
 </h2>
 
 <div
@@ -280,7 +277,6 @@ class="menu-item active"
 onclick="openTab(event,'dash')">
 
 <i class="ri-dashboard-line"></i>
-
 Dashboard
 
 </div>
@@ -290,30 +286,39 @@ class="menu-item"
 onclick="openTab(event,'profile')">
 
 <i class="ri-user-settings-line"></i>
-
 Avatar
 
 </div>
 
 <div
+class="menu-item"
+onclick="openTab(event,'theme')">
+
+<i class="ri-image-line"></i>
+Đổi nền
+
+</div>
+
+<!-- ADMIN NAV -->
+
+<div
 id="admin-nav"
 class="hidden">
 
-<hr
-style="border:.5px solid #333;
-margin:15px 0;">
+<hr style="border:.5px solid #333;margin:15px 0;">
 
 <div
 class="menu-item"
 onclick="openTab(event,'admin')">
 
 <i class="ri-group-line"></i>
-
 Admin
 
 </div>
 
 </div>
+
+<!-- LOGOUT -->
 
 <div
 class="menu-item"
@@ -321,7 +326,6 @@ onclick="logout()"
 style="margin-top:auto;color:#ff4d4d">
 
 <i class="ri-logout-box-line"></i>
-
 Đăng xuất
 
 </div>
@@ -335,9 +339,7 @@ style="margin-top:auto;color:#ff4d4d">
 <div class="header">
 
 <h1 id="tab-title">
-
 Dashboard
-
 </h1>
 
 <div class="profile">
@@ -345,9 +347,7 @@ Dashboard
 <div style="text-align:right">
 
 <b id="u-name">
-
 Loading...
-
 </b>
 
 <br>
@@ -370,7 +370,7 @@ src="https://cdn-icons-png.flaticon.com/512/149/149071.png">
 
 </div>
 
-<!-- DASH -->
+<!-- DASHBOARD -->
 
 <div
 id="dash"
@@ -381,9 +381,7 @@ class="tab-content active">
 <div class="card">
 
 <h3>
-
 Trạng thái tài khoản
-
 </h3>
 
 <div
@@ -399,9 +397,7 @@ style="color:#00ff00">
 <div class="card">
 
 <h3>
-
 Email
-
 </h3>
 
 <div
@@ -429,9 +425,7 @@ class="card"
 style="max-width:500px;">
 
 <h3>
-
 Đổi Avatar
-
 </h3>
 
 <input
@@ -451,6 +445,45 @@ Cập nhật Avatar
 
 </div>
 
+<!-- THEME -->
+
+<div
+id="theme"
+class="tab-content">
+
+<div
+class="card"
+style="max-width:500px;">
+
+<h3>
+Đổi Background
+</h3>
+
+<input
+type="text"
+id="bg-url"
+placeholder="https://example.com/background.jpg">
+
+<button
+onclick="changeBackground()"
+style="margin-top:12px;width:100%">
+
+Đổi Background
+
+</button>
+
+<button
+onclick="resetBackground()"
+style="margin-top:10px;width:100%;background:#ff4d4d;color:#fff;">
+
+Reset Background
+
+</button>
+
+</div>
+
+</div>
+
 <!-- ADMIN -->
 
 <div
@@ -460,16 +493,29 @@ class="tab-content">
 <div class="card">
 
 <h3>
-
 ADMIN PANEL
-
 </h3>
 
-<p>
-
+<p style="margin-top:10px;">
 Chỉ tài khoản admin mới thấy mục này.
-
 </p>
+
+<br>
+
+<input
+type="text"
+placeholder="Nhập email user">
+
+<button style="margin-top:10px;">
+Khóa tài khoản
+</button>
+
+<button
+style="margin-top:10px;background:#ff4d4d;color:#fff;">
+
+Xóa user
+
+</button>
 
 </div>
 
@@ -489,11 +535,8 @@ from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
 
 getAuth,
-
 onAuthStateChanged,
-
 signOut,
-
 updateProfile
 
 }
@@ -519,6 +562,17 @@ appId:"1:595740220490:web:61f9784c5f678299cf5ab3"
 const app=initializeApp(firebaseConfig);
 
 const auth=getAuth(app);
+
+/* LOAD BG */
+
+const savedBg=
+localStorage.getItem("panel_bg");
+
+if(savedBg){
+
+document.body.style.backgroundImage=
+`url('${savedBg}')`;
+}
 
 /* CHECK LOGIN */
 
@@ -605,7 +659,7 @@ await signOut(auth);
 window.location.href="index.html";
 }
 
-/* AVATAR */
+/* CHANGE AVATAR */
 
 window.changeAvatar=async()=>{
 
@@ -638,6 +692,45 @@ alert("Đổi avatar thành công!");
 
 alert(error.message);
 }
+}
+
+/* CHANGE BACKGROUND */
+
+window.changeBackground=()=>{
+
+const url=
+document
+.getElementById('bg-url')
+.value;
+
+if(!url){
+
+return alert("Nhập link ảnh!");
+}
+
+document.body.style.backgroundImage=
+`url('${url}')`;
+
+localStorage.setItem(
+"panel_bg",
+url
+);
+
+alert("Đổi nền thành công!");
+}
+
+/* RESET BACKGROUND */
+
+window.resetBackground=()=>{
+
+localStorage.removeItem("panel_bg");
+
+document.body.style.backgroundImage="none";
+
+document.body.style.background=
+"var(--bg)";
+
+alert("Đã reset nền!");
 }
 
 console.log("DASHBOARD OK");
