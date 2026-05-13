@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>PRO PANEL LOGIN</title>
 
-<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-
-<script src="https://accounts.google.com/gsi/client" async defer></script>
+<link
+href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
+rel="stylesheet"
+/>
 
 <style>
 
@@ -24,50 +28,66 @@
 }
 
 body{
-    font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+
+    font-family:'Segoe UI',sans-serif;
+
     background:#000;
-    overflow:hidden;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+
     color:#fff;
+
+    height:100vh;
+
+    overflow:hidden;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
 }
 
 .login__img{
+
     position:absolute;
+
     width:100%;
     height:100%;
+
     object-fit:cover;
+
     z-index:-1;
+
     filter:brightness(.35);
 }
 
 .form-card{
 
     width:390px;
+
     padding:2rem;
+
+    border-radius:25px;
 
     background:rgba(255,255,255,.05);
 
-    border:1px solid rgba(255,255,255,.1);
+    border:1px solid rgba(255,255,255,.08);
 
-    border-radius:24px;
-
-    backdrop-filter:blur(20px);
+    backdrop-filter:blur(18px);
 
     box-shadow:
-    0 0 20px rgba(0,242,255,.15),
-    0 15px 35px rgba(0,0,0,.5);
+    0 0 25px rgba(0,242,255,.15),
+    0 10px 40px rgba(0,0,0,.5);
 
     animation:fade .5s ease;
 }
 
 @keyframes fade{
+
     from{
         opacity:0;
         transform:translateY(20px);
     }
+
     to{
         opacity:1;
         transform:translateY(0);
@@ -75,22 +95,29 @@ body{
 }
 
 .title{
+
     text-align:center;
+
     margin-bottom:25px;
+
     color:var(--primary);
+
     font-size:1.7rem;
+
     letter-spacing:2px;
 }
 
 .input-box{
 
     display:flex;
+
     align-items:center;
+
     gap:10px;
 
-    padding:12px 0;
+    border-bottom:2px solid rgba(255,255,255,.15);
 
-    border-bottom:2px solid rgba(255,255,255,.2);
+    padding:12px 0;
 
     margin-bottom:18px;
 }
@@ -98,32 +125,43 @@ body{
 .input-box input{
 
     width:100%;
+
     background:none;
+
     border:none;
+
     outline:none;
+
     color:#fff;
+
     font-size:15px;
 }
 
 .input-box i{
+
     font-size:20px;
 }
 
 .eye{
+
     cursor:pointer;
+
     transition:.3s;
 }
 
 .eye:hover{
+
     color:var(--primary);
 }
 
 .btn{
 
     width:100%;
+
     padding:13px;
 
     border:none;
+
     border-radius:12px;
 
     background:var(--primary);
@@ -148,57 +186,73 @@ body{
     0 0 30px var(--primary);
 }
 
-.divider{
-
-    margin:22px 0;
-    border-bottom:1px solid rgba(255,255,255,.2);
-    position:relative;
-}
-
-.divider span{
-
-    position:absolute;
-    top:-10px;
-    left:50%;
-
-    transform:translateX(-50%);
-
-    background:#111;
-    padding:0 10px;
-
-    font-size:12px;
-    color:#999;
-}
-
 .options{
 
     display:flex;
+
     justify-content:space-between;
+
     font-size:13px;
 
     margin-top:-5px;
 }
 
 .link{
+
     color:var(--primary);
+
     cursor:pointer;
 }
 
 .link:hover{
+
     text-decoration:underline;
 }
 
 .hidden{
+
     display:none !important;
 }
 
-#google-btn{
-    display:flex;
-    justify-content:center;
+.divider{
+
+    margin:22px 0;
+
+    border-bottom:1px solid rgba(255,255,255,.15);
+
+    position:relative;
+}
+
+.divider span{
+
+    position:absolute;
+
+    top:-10px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    background:#111;
+
+    padding:0 10px;
+
+    color:#999;
+
+    font-size:12px;
+}
+
+.info{
+
+    text-align:center;
+
     margin-top:15px;
+
+    font-size:14px;
 }
 
 </style>
+
 </head>
 
 <body>
@@ -217,6 +271,7 @@ class="login__img"
     <form id="loginForm">
 
         <div class="input-box">
+
             <i class="ri-mail-line"></i>
 
             <input
@@ -224,6 +279,7 @@ class="login__img"
             id="l-email"
             placeholder="Email"
             required>
+
         </div>
 
         <div class="input-box">
@@ -246,35 +302,60 @@ class="login__img"
         <div class="options">
 
             <label>
-                <input type="checkbox" id="remember">
+
+                <input type="checkbox">
+
                 Ghi nhớ
+
             </label>
 
-            <span class="link" onclick="showForm('forgot')">
+            <span
+            class="link"
+            onclick="showForm('forgot')">
+
                 Quên mật khẩu?
+
             </span>
 
         </div>
 
         <button class="btn" type="submit">
+
             ĐĂNG NHẬP
+
         </button>
 
         <div class="divider">
+
             <span>HOẶC</span>
+
         </div>
 
-        <div id="google-btn"></div>
+        <button
+        type="button"
+        class="btn"
+        onclick="googleLogin()">
 
-        <p style="text-align:center;margin-top:20px;font-size:14px">
+            Đăng nhập với Google
+
+        </button>
+
+        <p class="info">
+
             Chưa có tài khoản?
 
-            <span class="link" onclick="showForm('reg')">
+            <span
+            class="link"
+            onclick="showForm('reg')">
+
                 Đăng ký
+
             </span>
+
         </p>
 
     </form>
+
 </div>
 
 <!-- REGISTER -->
@@ -327,13 +408,19 @@ class="login__img"
         </div>
 
         <button class="btn">
+
             TẠO TÀI KHOẢN
+
         </button>
 
-        <p style="text-align:center;margin-top:15px">
+        <p class="info">
 
-            <span class="link" onclick="showForm('login')">
-                Quay lại
+            <span
+            class="link"
+            onclick="showForm('login')">
+
+                Quay lại đăng nhập
+
             </span>
 
         </p>
@@ -348,241 +435,156 @@ class="login__img"
 
     <h2 class="title">KHÔI PHỤC</h2>
 
-    <div id="otp-step-1">
+    <div class="input-box">
 
-        <div class="input-box">
+        <i class="ri-mail-line"></i>
 
-            <i class="ri-mail-line"></i>
-
-            <input
-            type="email"
-            id="f-email"
-            placeholder="Email">
-
-        </div>
-
-        <button class="btn" onclick="sendOTP()">
-            Gửi OTP
-        </button>
+        <input
+        type="email"
+        id="f-email"
+        placeholder="Nhập Email">
 
     </div>
 
-    <div id="otp-step-2" class="hidden">
+    <button
+    class="btn"
+    onclick="sendReset()">
 
-        <p style="text-align:center;color:var(--primary);font-size:13px;margin-bottom:15px">
+        Gửi Email Reset
 
-            OTP demo: 123456
+    </button>
 
-        </p>
+    <p class="info">
 
-        <div class="input-box">
+        <span
+        class="link"
+        onclick="showForm('login')">
 
-            <i class="ri-key-line"></i>
+            Quay lại
 
-            <input
-            type="text"
-            id="otp-code"
-            placeholder="Nhập OTP">
-
-        </div>
-
-        <button class="btn" onclick="verifyOTP()">
-            Xác nhận OTP
-        </button>
-
-    </div>
-
-    <div id="otp-step-3" class="hidden">
-
-        <div class="input-box">
-
-            <i class="ri-lock-line"></i>
-
-            <input
-            type="password"
-            id="new-pass"
-            placeholder="Mật khẩu mới">
-
-            <i
-            class="ri-eye-line eye"
-            onclick="togglePassword('new-pass',this)">
-            </i>
-
-        </div>
-
-        <div class="input-box">
-
-            <i class="ri-lock-password-line"></i>
-
-            <input
-            type="password"
-            id="confirm-pass"
-            placeholder="Nhập lại mật khẩu">
-
-            <i
-            class="ri-eye-line eye"
-            onclick="togglePassword('confirm-pass',this)">
-            </i>
-
-        </div>
-
-        <button class="btn" onclick="changePassword()">
-            Đổi mật khẩu
-        </button>
-
-    </div>
-
-    <p style="text-align:center;margin-top:15px">
-
-        <span class="link" onclick="showForm('login')">
-            Hủy
         </span>
 
     </p>
 
 </div>
 
-<script>
+<script type="module">
 
 /*
-============================
-SERVER STORAGE GIẢ
-============================
-
-Muốn lưu server thật:
-- PHP + MySQL
-- NodeJS + MongoDB
-- Firebase
-
-Hiện tại:
-localStorage giả lập database
+========================
+FIREBASE IMPORT
+========================
 */
 
-if(!localStorage.getItem('all_users')){
+import {
 
-    localStorage.setItem(
-        'all_users',
+    initializeApp
 
-        JSON.stringify([
+} from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
 
-            {
-                name:"Admin",
-                email:"admin@pro.com",
-                pass:btoa("admin123"),
-                role:"admin",
-                avatar:""
-            }
 
-        ])
-    )
-}
+import {
 
-function showForm(id){
+    getAuth,
+
+    createUserWithEmailAndPassword,
+
+    signInWithEmailAndPassword,
+
+    GoogleAuthProvider,
+
+    signInWithPopup,
+
+    sendPasswordResetEmail,
+
+    onAuthStateChanged,
+
+    signOut,
+
+    updateProfile
+
+} from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+
+/*
+========================
+FIREBASE CONFIG
+========================
+*/
+
+const firebaseConfig = {
+
+    apiKey: "AIzaSyCfl2DViL6ehjDDzay0yWBnkzZtw7X5yW8",
+
+    authDomain: "create-a-73522.firebaseapp.com",
+
+    projectId: "create-a-73522",
+
+    storageBucket: "create-a-73522.firebasestorage.app",
+
+    messagingSenderId: "595740220490",
+
+    appId: "1:595740220490:web:61f9784c5f678299cf5ab3",
+
+    measurementId: "G-GY9VDYX0ZE"
+};
+
+/*
+========================
+INIT
+========================
+*/
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const provider = new GoogleAuthProvider();
+
+/*
+========================
+SHOW FORM
+========================
+*/
+
+window.showForm=(id)=>{
 
     document
     .querySelectorAll('.form-card')
-    .forEach(el=>el.classList.add('hidden'))
+    .forEach(el=>el.classList.add('hidden'));
 
     document
     .getElementById(id+'-section')
-    .classList.remove('hidden')
+    .classList.remove('hidden');
 }
 
-function togglePassword(id,icon){
+/*
+========================
+SHOW PASSWORD
+========================
+*/
 
-    const input=document.getElementById(id)
+window.togglePassword=(id,icon)=>{
+
+    const input=document.getElementById(id);
 
     if(input.type==="password"){
 
-        input.type="text"
+        input.type="text";
 
         icon.classList.replace(
             'ri-eye-line',
             'ri-eye-off-line'
-        )
+        );
 
     }else{
 
-        input.type="password"
+        input.type="password";
 
         icon.classList.replace(
             'ri-eye-off-line',
             'ri-eye-line'
-        )
+        );
     }
-}
-
-window.onload=function(){
-
-    google.accounts.id.initialize({
-
-        client_id:"462833980584-ep3ttbi79s3ihl450nbcgo7rb22q4b7m.apps.googleusercontent.com",
-
-        callback:handleCredentialResponse
-    })
-
-    google.accounts.id.renderButton(
-
-        document.getElementById("google-btn"),
-
-        {
-            theme:"outline",
-            size:"large",
-            width:300
-        }
-    )
-}
-
-function decodeJwtResponse(token){
-
-    let base64Url=token.split('.')[1]
-
-    let base64=base64Url
-    .replace(/-/g,'+')
-    .replace(/_/g,'/')
-
-    return JSON.parse(atob(base64))
-}
-
-function handleCredentialResponse(response){
-
-    const payload=decodeJwtResponse(response.credential)
-
-    let allUsers=JSON.parse(
-        localStorage.getItem('all_users')
-    )
-
-    let user=allUsers.find(
-        u=>u.email===payload.email
-    )
-
-    if(!user){
-
-        user={
-
-            name:payload.name,
-            email:payload.email,
-            pass:"google-auth",
-            role:"user",
-            avatar:payload.picture
-        }
-
-        allUsers.push(user)
-
-        localStorage.setItem(
-            'all_users',
-            JSON.stringify(allUsers)
-        )
-    }
-
-    localStorage.setItem(
-        'currentUser',
-        JSON.stringify(user)
-    )
-
-    alert("Đăng nhập Google thành công!")
-
-    window.location.href="index.html"
 }
 
 /*
@@ -591,49 +593,46 @@ REGISTER
 ========================
 */
 
-document.getElementById('regForm')
-.onsubmit=(e)=>{
+document
+.getElementById('regForm')
+.addEventListener('submit',async(e)=>{
 
-    e.preventDefault()
+    e.preventDefault();
 
-    let allUsers=JSON.parse(
-        localStorage.getItem('all_users')
-    )
+    const name=document
+    .getElementById('r-name').value;
 
     const email=document
-    .getElementById('r-email').value
+    .getElementById('r-email').value;
 
-    if(allUsers.find(u=>u.email===email)){
+    const password=document
+    .getElementById('r-pass').value;
 
-        return alert("Email đã tồn tại!")
+    try{
+
+        const userCredential=
+        await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+        await updateProfile(
+            userCredential.user,
+            {
+                displayName:name
+            }
+        );
+
+        alert("Đăng ký thành công!");
+
+        showForm('login');
+
+    }catch(error){
+
+        alert(error.message);
     }
-
-    const newUser={
-
-        name:document.getElementById('r-name').value,
-
-        email:email,
-
-        pass:btoa(
-            document.getElementById('r-pass').value
-        ),
-
-        role:"user",
-
-        avatar:""
-    }
-
-    allUsers.push(newUser)
-
-    localStorage.setItem(
-        'all_users',
-        JSON.stringify(allUsers)
-    )
-
-    alert("Đăng ký thành công!")
-
-    showForm('login')
-}
+});
 
 /*
 ========================
@@ -641,137 +640,120 @@ LOGIN
 ========================
 */
 
-document.getElementById('loginForm')
-.onsubmit=(e)=>{
+document
+.getElementById('loginForm')
+.addEventListener('submit',async(e)=>{
 
-    e.preventDefault()
+    e.preventDefault();
 
     const email=document
-    .getElementById('l-email').value
+    .getElementById('l-email').value;
 
-    const pass=btoa(
-        document.getElementById('l-pass').value
-    )
+    const password=document
+    .getElementById('l-pass').value;
 
-    let allUsers=JSON.parse(
-        localStorage.getItem('all_users')
-    )
+    try{
 
-    let user=allUsers.find(
-        u=>u.email===email && u.pass===pass
-    )
+        await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
 
-    if(user){
+        alert("Đăng nhập thành công!");
 
-        localStorage.setItem(
-            'currentUser',
-            JSON.stringify(user)
-        )
+        window.location.href="index.html";
 
-        alert("Đăng nhập thành công!")
+    }catch(error){
 
-        window.location.href="index.html"
+        alert("Sai tài khoản hoặc mật khẩu!");
+    }
+});
 
-    }else{
+/*
+========================
+GOOGLE LOGIN
+========================
+*/
 
-        alert("Sai tài khoản hoặc mật khẩu!")
+window.googleLogin=async()=>{
+
+    try{
+
+        await signInWithPopup(auth,provider);
+
+        alert("Đăng nhập Google thành công!");
+
+        window.location.href="index.html";
+
+    }catch(error){
+
+        alert(error.message);
     }
 }
 
 /*
 ========================
-FORGOT PASSWORD
+RESET PASSWORD
 ========================
 */
 
-function sendOTP(){
+window.sendReset=async()=>{
 
     const email=document
-    .getElementById('f-email').value
+    .getElementById('f-email').value;
 
-    let allUsers=JSON.parse(
-        localStorage.getItem('all_users')
-    )
+    if(!email){
 
-    if(!allUsers.find(u=>u.email===email)){
-
-        return alert("Email không tồn tại!")
+        return alert("Nhập email!");
     }
 
-    document
-    .getElementById('otp-step-1')
-    .classList.add('hidden')
+    try{
 
-    document
-    .getElementById('otp-step-2')
-    .classList.remove('hidden')
+        await sendPasswordResetEmail(
+            auth,
+            email
+        );
+
+        alert("Đã gửi email reset!");
+
+    }catch(error){
+
+        alert(error.message);
+    }
 }
 
-function verifyOTP(){
+/*
+========================
+AUTO LOGIN
+========================
+*/
 
-    const otp=document
-    .getElementById('otp-code').value
+onAuthStateChanged(auth,(user)=>{
 
-    if(otp==="123456"){
+    if(user){
 
-        document
-        .getElementById('otp-step-2')
-        .classList.add('hidden')
+        console.log("Đã đăng nhập:");
 
-        document
-        .getElementById('otp-step-3')
-        .classList.remove('hidden')
+        console.log(user.email);
 
     }else{
 
-        alert("OTP sai!")
+        console.log("Chưa đăng nhập");
     }
-}
+});
 
-function changePassword(){
+/*
+========================
+LOGOUT
+========================
+*/
 
-    const newPass=document
-    .getElementById('new-pass').value
+window.logout=()=>{
 
-    const confirm=document
-    .getElementById('confirm-pass').value
+    signOut(auth);
 
-    if(newPass.length<6){
-
-        return alert("Mật khẩu tối thiểu 6 ký tự!")
-    }
-
-    if(newPass!==confirm){
-
-        return alert("Mật khẩu nhập lại không khớp!")
-    }
-
-    const email=document
-    .getElementById('f-email').value
-
-    let allUsers=JSON.parse(
-        localStorage.getItem('all_users')
-    )
-
-    let index=allUsers.findIndex(
-        u=>u.email===email
-    )
-
-    if(index===-1){
-
-        return alert("Không tìm thấy user!")
-    }
-
-    allUsers[index].pass=btoa(newPass)
-
-    localStorage.setItem(
-        'all_users',
-        JSON.stringify(allUsers)
-    )
-
-    alert("Đổi mật khẩu thành công!")
-
-    showForm('login')
+    alert("Đã đăng xuất!");
 }
 
 </script>
