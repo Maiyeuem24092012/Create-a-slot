@@ -621,9 +621,13 @@ document
 
 }else{
 
-window.location.href="login.html";
+setTimeout(()=>{
+
+window.location.replace("login.html");
+
+},500);
+
 }
-});
 
 /* TAB */
 
@@ -656,7 +660,12 @@ window.logout=async()=>{
 
 await signOut(auth);
 
-window.location.href="login.html";
+setTimeout(()=>{
+
+window.location.replace("login.html");
+
+},300);
+
 }
 
 /* CHANGE AVATAR */
