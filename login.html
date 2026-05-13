@@ -1,10 +1,13 @@
+<!-- =========================
+FILE 1: index.html
+========================= -->
+
 <!DOCTYPE html>
 <html lang="vi">
 
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>PRO PANEL LOGIN</title>
@@ -18,7 +21,6 @@ rel="stylesheet"
 
 :root{
     --primary:#00f2ff;
-    --bg:#000;
 }
 
 *{
@@ -77,21 +79,6 @@ body{
     box-shadow:
     0 0 25px rgba(0,242,255,.15),
     0 10px 40px rgba(0,0,0,.5);
-
-    animation:fade .5s ease;
-}
-
-@keyframes fade{
-
-    from{
-        opacity:0;
-        transform:translateY(20px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
 }
 
 .title{
@@ -137,21 +124,9 @@ body{
     font-size:15px;
 }
 
-.input-box i{
-
-    font-size:20px;
-}
-
 .eye{
 
     cursor:pointer;
-
-    transition:.3s;
-}
-
-.eye:hover{
-
-    color:var(--primary);
 }
 
 .btn{
@@ -172,29 +147,18 @@ body{
 
     cursor:pointer;
 
-    transition:.3s;
-
     margin-top:10px;
 }
 
 .btn:hover{
-
-    transform:translateY(-2px);
 
     box-shadow:
     0 0 10px var(--primary),
     0 0 30px var(--primary);
 }
 
-.options{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    font-size:13px;
-
-    margin-top:-5px;
+.hidden{
+    display:none !important;
 }
 
 .link{
@@ -204,51 +168,11 @@ body{
     cursor:pointer;
 }
 
-.link:hover{
-
-    text-decoration:underline;
-}
-
-.hidden{
-
-    display:none !important;
-}
-
-.divider{
-
-    margin:22px 0;
-
-    border-bottom:1px solid rgba(255,255,255,.15);
-
-    position:relative;
-}
-
-.divider span{
-
-    position:absolute;
-
-    top:-10px;
-
-    left:50%;
-
-    transform:translateX(-50%);
-
-    background:#111;
-
-    padding:0 10px;
-
-    color:#999;
-
-    font-size:12px;
-}
-
 .info{
 
     text-align:center;
 
     margin-top:15px;
-
-    font-size:14px;
 }
 
 </style>
@@ -266,95 +190,81 @@ class="login__img"
 
 <div class="form-card" id="login-section">
 
-    <h2 class="title">ĐĂNG NHẬP</h2>
+<h2 class="title">ĐĂNG NHẬP</h2>
 
-    <form id="loginForm">
+<form id="loginForm">
 
-        <div class="input-box">
+<div class="input-box">
 
-            <i class="ri-mail-line"></i>
+<i class="ri-mail-line"></i>
 
-            <input
-            type="email"
-            id="l-email"
-            placeholder="Email"
-            required>
+<input
+type="email"
+id="l-email"
+placeholder="Email"
+required>
 
-        </div>
+</div>
 
-        <div class="input-box">
+<div class="input-box">
 
-            <i class="ri-lock-line"></i>
+<i class="ri-lock-line"></i>
 
-            <input
-            type="password"
-            id="l-pass"
-            placeholder="Mật khẩu"
-            required>
+<input
+type="password"
+id="l-pass"
+placeholder="Mật khẩu"
+required>
 
-            <i
-            class="ri-eye-line eye"
-            onclick="togglePassword('l-pass',this)">
-            </i>
+<i
+class="ri-eye-line eye"
+onclick="togglePassword('l-pass',this)">
+</i>
 
-        </div>
+</div>
 
-        <div class="options">
+<button class="btn">
 
-            <label>
+ĐĂNG NHẬP
 
-                <input type="checkbox">
+</button>
 
-                Ghi nhớ
+<button
+type="button"
+class="btn"
+onclick="googleLogin()">
 
-            </label>
+Google Login
 
-            <span
-            class="link"
-            onclick="showForm('forgot')">
+</button>
 
-                Quên mật khẩu?
+<p class="info">
 
-            </span>
+Chưa có tài khoản?
 
-        </div>
+<span
+class="link"
+onclick="showForm('reg')">
 
-        <button class="btn" type="submit">
+Đăng ký
 
-            ĐĂNG NHẬP
+</span>
 
-        </button>
+</p>
 
-        <div class="divider">
+<p class="info">
 
-            <span>HOẶC</span>
+<span
+class="link"
+onclick="showForm('forgot')">
 
-        </div>
+Quên mật khẩu?
 
-        <button
-        type="button"
-        class="btn"
-        onclick="googleLogin()">
+</span>
 
-            Đăng nhập với Google
+</p>
 
-        </button>
-
-        <p class="info">
-
-            Chưa có tài khoản?
-
-            <span
-            class="link"
-            onclick="showForm('reg')">
-
-                Đăng ký
-
-            </span>
-
-        </p>
-
-    </form>
+</form>
 
 </div>
 
@@ -362,70 +272,70 @@ class="login__img"
 
 <div class="form-card hidden" id="reg-section">
 
-    <h2 class="title">ĐĂNG KÝ</h2>
+<h2 class="title">ĐĂNG KÝ</h2>
 
-    <form id="regForm">
+<form id="regForm">
 
-        <div class="input-box">
+<div class="input-box">
 
-            <i class="ri-user-line"></i>
+<i class="ri-user-line"></i>
 
-            <input
-            type="text"
-            id="r-name"
-            placeholder="Tên hiển thị"
-            required>
+<input
+type="text"
+id="r-name"
+placeholder="Tên hiển thị"
+required>
 
-        </div>
+</div>
 
-        <div class="input-box">
+<div class="input-box">
 
-            <i class="ri-mail-line"></i>
+<i class="ri-mail-line"></i>
 
-            <input
-            type="email"
-            id="r-email"
-            placeholder="Email"
-            required>
+<input
+type="email"
+id="r-email"
+placeholder="Email"
+required>
 
-        </div>
+</div>
 
-        <div class="input-box">
+<div class="input-box">
 
-            <i class="ri-lock-line"></i>
+<i class="ri-lock-line"></i>
 
-            <input
-            type="password"
-            id="r-pass"
-            placeholder="Mật khẩu"
-            required>
+<input
+type="password"
+id="r-pass"
+placeholder="Mật khẩu"
+required>
 
-            <i
-            class="ri-eye-line eye"
-            onclick="togglePassword('r-pass',this)">
-            </i>
+<i
+class="ri-eye-line eye"
+onclick="togglePassword('r-pass',this)">
+</i>
 
-        </div>
+</div>
 
-        <button class="btn">
+<button class="btn">
 
-            TẠO TÀI KHOẢN
+TẠO TÀI KHOẢN
 
-        </button>
+</button>
 
-        <p class="info">
+<p class="info">
 
-            <span
-            class="link"
-            onclick="showForm('login')">
+<span
+class="link"
+onclick="showForm('login')">
 
-                Quay lại đăng nhập
+Quay lại
 
-            </span>
+</span>
 
-        </p>
+</p>
 
-    </form>
+</form>
 
 </div>
 
@@ -433,327 +343,366 @@ class="login__img"
 
 <div class="form-card hidden" id="forgot-section">
 
-    <h2 class="title">KHÔI PHỤC</h2>
+<h2 class="title">RESET PASSWORD</h2>
 
-    <div class="input-box">
+<div class="input-box">
 
-        <i class="ri-mail-line"></i>
+<i class="ri-mail-line"></i>
 
-        <input
-        type="email"
-        id="f-email"
-        placeholder="Nhập Email">
+<input
+type="email"
+id="f-email"
+placeholder="Nhập email">
 
-    </div>
+</div>
 
-    <button
-    class="btn"
-    onclick="sendReset()">
+<button
+class="btn"
+onclick="sendReset()">
 
-        Gửi Email Reset
+Gửi Email Reset
 
-    </button>
+</button>
 
-    <p class="info">
+<p class="info">
 
-        <span
-        class="link"
-        onclick="showForm('login')">
+<span
+class="link"
+onclick="showForm('login')">
 
-            Quay lại
+Quay lại
 
-        </span>
+</span>
 
-    </p>
+</p>
 
 </div>
 
 <script type="module">
 
-/*
-========================
-FIREBASE IMPORT
-========================
-*/
+import {
+initializeApp
+}
+from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
 
 import {
 
-    initializeApp
+getAuth,
 
-} from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+createUserWithEmailAndPassword,
 
+signInWithEmailAndPassword,
 
-import {
+GoogleAuthProvider,
 
-    getAuth,
+signInWithPopup,
 
-    createUserWithEmailAndPassword,
+sendPasswordResetEmail,
 
-    signInWithEmailAndPassword,
+updateProfile
 
-    GoogleAuthProvider,
+}
+from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
 
-    signInWithPopup,
+const firebaseConfig={
 
-    sendPasswordResetEmail,
+apiKey:"AIzaSyCfl2DViL6ehjDDzay0yWBnkzZtw7X5yW8",
 
-    onAuthStateChanged,
+authDomain:"create-a-73522.firebaseapp.com",
 
-    signOut,
+projectId:"create-a-73522",
 
-    updateProfile
+storageBucket:"create-a-73522.firebasestorage.app",
 
-} from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+messagingSenderId:"595740220490",
 
-/*
-========================
-FIREBASE CONFIG
-========================
-*/
-
-const firebaseConfig = {
-
-    apiKey: "AIzaSyCfl2DViL6ehjDDzay0yWBnkzZtw7X5yW8",
-
-    authDomain: "create-a-73522.firebaseapp.com",
-
-    projectId: "create-a-73522",
-
-    storageBucket: "create-a-73522.firebasestorage.app",
-
-    messagingSenderId: "595740220490",
-
-    appId: "1:595740220490:web:61f9784c5f678299cf5ab3",
-
-    measurementId: "G-GY9VDYX0ZE"
+appId:"1:595740220490:web:61f9784c5f678299cf5ab3"
 };
 
-/*
-========================
-INIT
-========================
-*/
+const app=initializeApp(firebaseConfig);
 
-const app = initializeApp(firebaseConfig);
+const auth=getAuth(app);
 
-const auth = getAuth(app);
+const provider=new GoogleAuthProvider();
 
-const provider = new GoogleAuthProvider();
-
-/*
-========================
-SHOW FORM
-========================
-*/
+provider.setCustomParameters({
+prompt:"select_account"
+});
 
 window.showForm=(id)=>{
 
-    document
-    .querySelectorAll('.form-card')
-    .forEach(el=>el.classList.add('hidden'));
+document
+.querySelectorAll('.form-card')
+.forEach(el=>el.classList.add('hidden'));
 
-    document
-    .getElementById(id+'-section')
-    .classList.remove('hidden');
+document
+.getElementById(id+'-section')
+.classList.remove('hidden');
 }
-
-/*
-========================
-SHOW PASSWORD
-========================
-*/
 
 window.togglePassword=(id,icon)=>{
 
-    const input=document.getElementById(id);
+const input=document.getElementById(id);
 
-    if(input.type==="password"){
+if(input.type==="password"){
 
-        input.type="text";
+input.type="text";
 
-        icon.classList.replace(
-            'ri-eye-line',
-            'ri-eye-off-line'
-        );
+icon.classList.replace(
+'ri-eye-line',
+'ri-eye-off-line'
+);
 
-    }else{
+}else{
 
-        input.type="password";
+input.type="password";
 
-        icon.classList.replace(
-            'ri-eye-off-line',
-            'ri-eye-line'
-        );
-    }
+icon.classList.replace(
+'ri-eye-off-line',
+'ri-eye-line'
+);
+}
 }
 
-/*
-========================
-REGISTER
-========================
-*/
+/* REGISTER */
 
 document
 .getElementById('regForm')
 .addEventListener('submit',async(e)=>{
 
-    e.preventDefault();
+e.preventDefault();
 
-    const name=document
-    .getElementById('r-name').value;
+const name=document
+.getElementById('r-name').value;
 
-    const email=document
-    .getElementById('r-email').value;
+const email=document
+.getElementById('r-email').value;
 
-    const password=document
-    .getElementById('r-pass').value;
+const password=document
+.getElementById('r-pass').value;
 
-    try{
+try{
 
-        const userCredential=
-        await createUserWithEmailAndPassword(
-            auth,
-            email,
-            password
-        );
+const userCredential=
+await createUserWithEmailAndPassword(
+auth,
+email,
+password
+);
 
-        await updateProfile(
-            userCredential.user,
-            {
-                displayName:name
-            }
-        );
+await updateProfile(
+userCredential.user,
+{
+displayName:name
+}
+);
 
-        alert("Đăng ký thành công!");
+alert("Đăng ký thành công!");
 
-        showForm('login');
+showForm('login');
 
-    }catch(error){
+}catch(error){
 
-        alert(error.message);
-    }
+alert(error.message);
+}
 });
 
-/*
-========================
-LOGIN
-========================
-*/
+/* LOGIN */
 
 document
 .getElementById('loginForm')
 .addEventListener('submit',async(e)=>{
 
-    e.preventDefault();
+e.preventDefault();
 
-    const email=document
-    .getElementById('l-email').value;
+const email=document
+.getElementById('l-email').value;
 
-    const password=document
-    .getElementById('l-pass').value;
+const password=document
+.getElementById('l-pass').value;
 
-    try{
+try{
 
-        await signInWithEmailAndPassword(
-            auth,
-            email,
-            password
-        );
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
 
-        alert("Đăng nhập thành công!");
+alert("Đăng nhập thành công!");
 
-        window.location.href="index.html";
+setTimeout(()=>{
 
-    }catch(error){
+window.location.href="panel.html";
 
-        alert("Sai tài khoản hoặc mật khẩu!");
-    }
+},1000);
+
+}catch(error){
+
+alert(error.message);
+}
 });
 
-/*
-========================
-GOOGLE LOGIN
-========================
-*/
+/* GOOGLE */
 
 window.googleLogin=async()=>{
 
-    try{
+try{
 
-        await signInWithPopup(auth,provider);
+await signInWithPopup(auth,provider);
 
-        alert("Đăng nhập Google thành công!");
+alert("Google login thành công!");
 
-        window.location.href="index.html";
+window.location.href="panel.html";
 
-    }catch(error){
+}catch(error){
 
-        alert(error.message);
-    }
+alert(error.message);
+}
 }
 
-/*
-========================
-RESET PASSWORD
-========================
-*/
+/* RESET */
 
 window.sendReset=async()=>{
 
-    const email=document
-    .getElementById('f-email').value;
+const email=document
+.getElementById('f-email').value;
 
-    if(!email){
+try{
 
-        return alert("Nhập email!");
-    }
+await sendPasswordResetEmail(
+auth,
+email
+);
 
-    try{
+alert("Đã gửi email reset!");
 
-        await sendPasswordResetEmail(
-            auth,
-            email
-        );
+}catch(error){
 
-        alert("Đã gửi email reset!");
-
-    }catch(error){
-
-        alert(error.message);
-    }
+alert(error.message);
+}
 }
 
-/*
-========================
-AUTO LOGIN
-========================
-*/
+</script>
+
+</body>
+</html>
+
+
+
+<!-- =========================
+FILE 2: panel.html
+========================= -->
+
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>PRO PANEL</title>
+
+<style>
+
+body{
+
+background:#000;
+
+color:#fff;
+
+font-family:sans-serif;
+
+padding:30px;
+}
+
+button{
+
+padding:12px 20px;
+
+border:none;
+
+background:cyan;
+
+cursor:pointer;
+
+font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body style="display:none">
+
+<h1>WELCOME TO PANEL</h1>
+
+<h2 id="user"></h2>
+
+<button onclick="logout()">
+
+ĐĂNG XUẤT
+
+</button>
+
+<script type="module">
+
+import {
+initializeApp
+}
+from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+
+import {
+
+getAuth,
+
+onAuthStateChanged,
+
+signOut
+
+}
+from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+
+const firebaseConfig={
+
+apiKey:"AIzaSyCfl2DViL6ehjDDzay0yWBnkzZtw7X5yW8",
+
+authDomain:"create-a-73522.firebaseapp.com",
+
+projectId:"create-a-73522",
+
+storageBucket:"create-a-73522.firebasestorage.app",
+
+messagingSenderId:"595740220490",
+
+appId:"1:595740220490:web:61f9784c5f678299cf5ab3"
+};
+
+const app=initializeApp(firebaseConfig);
+
+const auth=getAuth(app);
 
 onAuthStateChanged(auth,(user)=>{
 
-    if(user){
+if(user){
 
-        console.log("Đã đăng nhập:");
+document.body.style.display="block";
 
-        console.log(user.email);
+document
+.getElementById("user")
+.innerHTML=user.email;
 
-    }else{
+}else{
 
-        console.log("Chưa đăng nhập");
-    }
+window.location.href="index.html";
+}
 });
 
-/*
-========================
-LOGOUT
-========================
-*/
+window.logout=async()=>{
 
-window.logout=()=>{
+await signOut(auth);
 
-    signOut(auth);
-
-    alert("Đã đăng xuất!");
+window.location.href="index.html";
 }
 
 </script>
